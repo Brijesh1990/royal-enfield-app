@@ -102,7 +102,11 @@
 <footer class="bg-dark text-white pt-4 mt-5">
   <div class="container">
     <div class="row">
-
+<!-- Background Relaxing Music -->
+<audio id="bgMusic"  autoplay loop>
+  <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
 <!-- Google Translate -->
  <div id="google_translate_element" class="text-end p-2"></div>
       <!-- About -->
@@ -163,6 +167,31 @@ function googleTranslateElementInit() {
   }, 'google_translate_element');
 }
 </script>
+
+
 <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+<script>
+window.addEventListener("load", function () {
+  const music = document.getElementById("bgMusic");
+
+  // Try to autoplay
+  let playPromise = music.play();
+
+  if (playPromise !== undefined) {
+    playPromise.then(() => {
+      // Autoplay started
+      music.muted = false; // unmute after play
+    }).catch(() => {
+      // Autoplay blocked → enable on user interaction
+      document.addEventListener("click", () => {
+        music.muted = false;
+        music.play();
+      }, { once: true });
+    });
+  }
+});
+</script>
+
 </body>
 </html>
